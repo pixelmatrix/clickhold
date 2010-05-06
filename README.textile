@@ -1,0 +1,61 @@
+h1. clickHold
+
+A simple plugin for adding a click and hold event.
+
+Run some code after a user clicks on something and holds down the mouse for a certain amount of time.
+
+h2. Usage
+
+Standard usage:
+
+$("#target").clickHold(1000, function(){
+  alert("Hello World!");
+});
+
+Short delay, not enabled on iPhone/iPad:
+
+$("#target").clickHold("short", function(){
+  alert("Hello World!");
+}, {touchEvents: false});
+
+h2. Parameters
+
+clickHold(*delay*(_integer_ or _string_), [*options*(_object_)], [*callback*(_function_)]);
+
+h3. delay
+
+This parameter sets how long (in milliseconds) the user has to click and hold for before the callback fires.
+
+You can also use a few strings: "short", "long", "normal", "fast", "slow"
+
+h3. options (optional)
+
+This parameter lets you change options.
+
+h4. touchEvents (boolean)
+
+Whether or not you want the plugin to also fire the callback on touch events (for iPhone/iPad support). Default value is true.
+
+clickHold(1000, {touchEvents: false}, function(){
+  alert("Normal computers only!");
+});
+
+h3. callback
+
+The function to run when the clickHold event fires.
+
+Either enter a function name, or use an anonymous function.
+
+clickHold(1000, function(){
+  //anonymous function
+});
+
+clickHold(1000, doStuff);
+
+function doStuff(){
+  //function name
+}
+
+h2. Tips
+
+iPhone and iPad have a default click & hold action for link tags. If you plan to rely on this for iPhone/iPad, it would be best to not use clickHold on a link tag.

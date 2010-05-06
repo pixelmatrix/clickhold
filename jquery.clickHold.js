@@ -31,10 +31,12 @@ options:
 touchEvents: (boolean)
 Enable this event for Touch devices (iPhone/iPad)
 
+Dedicated to Josh Jenkins and Mike Sigler
+
 Enjoy!
 
 */
-
+var _t, _r;
 (function($) {
   $.fn.clickHold = function(ms, options, trigger) {
     //map vars correctly
@@ -50,8 +52,6 @@ Enjoy!
       var $this = $(this);
       // build element specific options
       var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
-      
-      var t; //our timer, scoped to the element
       
       //support keywords
       if(typeof(ms) == "string"){
@@ -69,18 +69,18 @@ Enjoy!
         $this.unbind(".clickHold");
         //call events
         $this.bind("mousedown.clickHold",function(){
-          $.fn.clickHold.mdown(t, trigger, ms, $this);
+          $.fn.clickHold.mdown(trigger, ms, $this, o);
         }).bind("mouseup.clickHold",function(){
-          $.fn.clickHold.mup(t);
+          $.fn.clickHold.mup();
         });
         //call touch events if enabled
         if(o.touchEvents){
           $this.bind("touchstart.clickHold", function(){
-            $.fn.clickHold.mdown(t, trigger, ms, $this);
+            $.fn.clickHold.mdown(trigger, ms, $this, o);
           }).bind("touchend.clickHold", function(){
-            $.fn.clickHold.mup(t);
+            $.fn.clickHold.mup();
           }).bind("touchcancel.clickHold", function(){
-            $.fn.clickHold.mup(t);
+            $.fn.clickHold.mup();
           });
         }
       }else{
@@ -89,23 +89,30 @@ Enjoy!
     });
   };
   
-  $.fn.clickHold.mdown = function(t, trigger, ms, el){
+  $.fn.clickHold.mdown = function(trigger, ms, el, o){
       el.unbind("click.clickHold");
-      t = setTimeout(function(){
+      _t = setTimeout(function(){
         el.bind("click.clickHold", function(){
           return false;
         });
-        trigger();
+        if(o.repeat){
+          _r = setInterval(trigger, o.interval);
+        }else{
+          trigger();
+        }
       }, ms);
   }
 
-  $.fn.clickHold.mup = function(t){
-    clearTimeout(t);
+  $.fn.clickHold.mup = function(){
+    clearTimeout(_t);
+    clearInterval(_r);
   }
   //
   // plugin defaults
   //
   $.fn.clickHold.defaults = {
-    touchEvents: true
+    touchEvents: true,
+    repeat: false,
+    interval: 300
   };
 })(jQuery);

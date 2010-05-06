@@ -40,6 +40,14 @@ clickHold(1000, {touchEvents: false}, function(){
   alert("Normal computers only!");
 });
 
+h4. repeat (boolean)
+
+If you want the callback to repeat while you're holding the mouse down (after the initial delay) set this property to true
+
+h4. interval (integer)
+
+This interval is for the repeat. Once the initial delay fires the event the first time, this property changes the repeat delay.
+
 h3. callback
 
 The function to run when the clickHold event fires.

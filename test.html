@@ -11,11 +11,8 @@
 	<script type="text/javascript" charset="utf-8">
 	  $(function(){
 	    $("#weewee").hide();
-	    $("#holdme").clickHold("normal", function(){
-	      $("#weewee").fadeIn();
-	      setTimeout(function(){
-	        $("#weewee").fadeOut();
-	      }, 5000);
+	    $("#holdme").clickHold("normal", {repeat: true}, function(){
+	      alert("boom!");
 	    });
 	    
 	  });

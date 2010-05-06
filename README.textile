@@ -20,7 +20,7 @@ $("#target").clickHold("short", function(){
 
 h2. Parameters
 
-clickHold(*delay*(_integer_ or _string_), [*options*(_object_)], [*callback*(_function_)]);
+clickHold(*delay*( _integer_ or _string_ ), [*options*( _object_ )], *callback*( _function_ ));
 
 h3. delay
 
